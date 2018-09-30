@@ -11,9 +11,9 @@ class Header extends Component {
             <div>
                 <nav class="navbar nodesktop navbar-expand-lg fixed-top navbar-light bg-info">
                     <a class="navbar-brand" href="#">
-                        <img src="appLogo.png" width="30" height="30" alt="" />
+                        <img src="appLogo.png" width="30" height="30" alt="" onClick={()=> this.props.setBodyContent("home")}/>
                     </a>
-                    <a class="navbar-brand" href="#">Ticketing App</a>
+                    <a class="navbar-brand" href="#">Travel Pay</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -28,6 +28,9 @@ class Header extends Component {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" onClick={()=> this.props.setBodyContent("recharge")}>Recharge Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onClick={()=> this.props.setBodyContent("digitalpass")}>Digital Pass</a>
                             </li>
                         </ul>
                         <form class="form-inline my-2 my-lg-0">
