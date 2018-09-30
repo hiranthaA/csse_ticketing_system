@@ -44,7 +44,7 @@ class MainBody extends Component {
         }
         else if(this.state.loadedContent==="home"){
             loadcontent = (
-                <Home/>
+                <Home setMainBodyContent={this.setMainBodyContent}/>
             );
         }
 

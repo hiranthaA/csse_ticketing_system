@@ -1,13 +1,35 @@
 .btnJourney{
-    padding-left: 150px;
-    padding-right: 150px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 .btnRecharge{
-    padding-left: 130px;
-    padding-right: 130px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-left: 43px;
+    padding-right: 43px;
+}
+
+.thumbnail{
+    max-width: 11rem;
+    max-height: 11rem;
+    min-width: 11rem;
+    min-height: 11rem;
+    margin : 10px;
+    cursor: pointer;
+}
+
+.row{
+    margin-left: 0px;
+    margin-right : 0px;
+}
+
+.homemaincard{
+    border : none;
+}
+
+.colJourney{
+    margin : 10px;
+}
+
+.colRecharge{
+    margin : 10px;
 }
