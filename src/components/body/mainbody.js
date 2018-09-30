@@ -11,7 +11,7 @@ class MainBody extends Component {
         super(props);
         this.setMainBodyContent = this.setMainBodyContent.bind(this);
         this.state = { 
-            loadedContent : "login"
+            loadedContent : "digitalpass"
          }
     }
 
