@@ -1,0 +1,28 @@
+.rechargeInputsAmount{
+    width:100%;
+    height: 5vh;
+    padding:5px 5px 5px 50px;
+}
+.rechargeInputs{
+    width:100%;
+    height: 5vh;
+    padding:5px 5px;
+}
+.rechargeRowClass{
+    text-align: left;
+}
+.static-value-Recharge{
+	position:absolute;
+	left:10px;
+	font-weight:bold;
+	font-size:0.8em;
+	color:#444;
+	top:12px;
+}
+.form-text-Recharge{
+    position: relative;
+    width: 100%;
+}
+.rechargeCodeClass{
+    text-align: right;
+}
