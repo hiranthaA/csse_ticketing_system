@@ -15,16 +15,15 @@ class TableCompleted extends Component {
     }
 
     getJourneyList() {
-        Axios.get('http://192.168.8.100:9090/journey/getall/').then(function (res) {
+        Axios.get('http://localhost:9090/journey/getall?cid='+this.props.currentuser+'&status=completed').then(function (res) {
             console.log(res.data);
             this.setState({ journeylist: res.data });
             return res.data;
         }.bind(this)).then(function (data) {
-            console.log(data)
+            console.log(data);
 
         }.bind(this));
     }
-
 
     render() {
 
