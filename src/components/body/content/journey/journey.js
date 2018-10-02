@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TableCompleted from './tablecompleted';
+import TableCurrent from './tablecurrent';
 
 class Journey extends Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class Journey extends Component {
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        sdsdsdsd
+                        <br/>
+                        <TableCurrent currentuser="1"/>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="table-responsive">
