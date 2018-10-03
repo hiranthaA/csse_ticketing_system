@@ -10,11 +10,17 @@ class MainBody extends Component {
     constructor(props) {
         super(props);
         this.setMainBodyContent = this.setMainBodyContent.bind(this);
+        this.setLoggedUser = this.setLoggedUser.bind(this);
         this.state = { 
-            loadedContent : "journey"
+            loadedContent : "login",
+            loggeduser : null
          }
     }
 
+    setLoggedUser(user){
+        console.log(user);
+        this.setState({loggeduser:user});
+    }
 
     setMainBodyContent(cont){
         this.setState({loadedContent : cont});
@@ -25,32 +31,32 @@ class MainBody extends Component {
 
         if(this.state.loadedContent==="journey"){
             loadcontent = (
-                <Journey setMainBodyContent={this.setMainBodyContent}/>
+                <Journey setMainBodyContent={this.setMainBodyContent} loggeduser={this.state.loggeduser}/>
             );
         }
         else if(this.state.loadedContent==="recharge"){
             loadcontent = (
-                <Recharge setMainBodyContent={this.setMainBodyContent}/>
+                <Recharge setMainBodyContent={this.setMainBodyContent} loggeduser={this.state.loggeduser}/>
             );
         }
         else if(this.state.loadedContent==="login"){
             loadcontent = (
-                <Login setMainBodyContent={this.setMainBodyContent}/>
+                <Login setMainBodyContent={this.setMainBodyContent} loggeduser={this.state.loggeduser} setLoggedUser={this.setLoggedUser}/>
             );
         }
         else if(this.state.loadedContent==="reg"){
             loadcontent = (
-                <Registration setMainBodyContent={this.setMainBodyContent}/>
+                <Registration setMainBodyContent={this.setMainBodyContent} loggeduser={this.state.loggeduser}/>
             );
         }
         else if(this.state.loadedContent==="home"){
             loadcontent = (
-                <Home setMainBodyContent={this.setMainBodyContent}/>
+                <Home setMainBodyContent={this.setMainBodyContent} loggeduser={this.state.loggeduser}/>
             );
         }
         else if(this.state.loadedContent==="digitalpass"){
             loadcontent = (
-                <DigitalPass setMainBodyContent={this.setMainBodyContent}/>
+                <DigitalPass setMainBodyContent={this.setMainBodyContent} loggeduser={this.state.loggeduser}/>
             );
         }
 
