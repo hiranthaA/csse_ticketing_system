@@ -21,6 +21,11 @@ class Registration extends Component {
         var fcvv = document.getElementById("fCusCvv").value;
         var fexpiry = document.getElementById("fCusExpiry").value;
 
+        var date = new Date();
+        date.setDate(date.getDate() + 7);
+
+        console.log(date);
+
         if(ffname==""){
             alert("First Name Required");
         }else if(flname==""){
@@ -49,9 +54,12 @@ class Registration extends Component {
                 lname : flname,
                 dob : fdob,
                 password : fpwd,
-                balance : bal
+                balance : bal,
+                customerType : "foreign",
+                expDate : date
 
             }
+            console.log(obj1);
 
             fetch('http://localhost:9090/customer/add', {
                 method: 'POST',
@@ -114,10 +122,11 @@ class Registration extends Component {
                 dob : ldob,
                 mobile : lmob,
                 password : lpwd,
-                balance : bal
+                balance : bal,
+                customerType : "local"
 
             }
-
+            console.log(obj);
             fetch('http://localhost:9090/customer/add', {
                 method: 'POST',
                 headers: {
@@ -383,7 +392,7 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >Credit Card No</label>
-                                                                    <input type="number" className="form-control" id="fCusCreditCardName" placeholder="Card No"></input>
+                                                                    <input type="number" className="form-control" id="fCusCreditCardNo" placeholder="Card No"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -396,7 +405,7 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >CVV</label>
-                                                                    <input type="text" className="form-control" id="fCusCreditCardName" placeholder="CVV"></input>
+                                                                    <input type="text" className="form-control" id="fCusCvv" placeholder="CVV"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -405,7 +414,7 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >Expiry MM/YY</label>
-                                                                    <input type="text" className="form-control" id="fCusCreditCardName" placeholder="MM/YY"></input>
+                                                                    <input type="text" className="form-control" id="fCusExpiry" placeholder="MM/YY"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -414,7 +423,7 @@ class Registration extends Component {
                                                             <div className="col-sm-6 col-md-8">
                                                                 <div className="form-group row">
                                                                     <label id="label" >Amount</label>
-                                                                    <input type="text" className="form-control" id="fCusCreditCardName" value="Rs.100.00" readOnly></input>
+                                                                    <input type="text" className="form-control"  value="Rs.100.00" readOnly></input>
                                                                 </div>
                                                             </div>
                                                         </div>
