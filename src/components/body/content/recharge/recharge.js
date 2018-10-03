@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import './recharge.css'
 
-const accountSid = 'ACb973d8209fc075d129ff421383aec6b1';
-const authToken = '59814d7d40309d08296b1c70e8a46a9e';
-
-const twilio = require('twilio');
-const cors = require('cors');
-var client = new twilio(accountSid, authToken);
 
 class Recharge extends Component {
     constructor(props) {
         super(props);
         this.validateVerification = this.validateVerification.bind(this);
+        this.handlePhone = this.handlePhone.bind(this);
         this.sendCode = this.sendCode.bind(this);
+        this.checkCode = this.checkCode.bind(this);
+        this.handleAmount = this.handleAmount.bind(this);
         this.state = { 
-            balance:60,
-            account:582065002,
-            code:1234
+            balance:"",
+            account:"",
+            code:0,
+            phoneNo:"",
+            amount:0
         }
+    }
+    checkCode(e){
+        var code = e.target.value;
+        this.setState({code:code});
     }
     sendCode(e){
         // fetch("https://api.txtlocal.com/send/",{method:"POST",body:{"apiKey":apiKey,"numbers":numbers,"sender":sender,"message":message}}).then((res)=>{
@@ -30,15 +33,82 @@ class Recharge extends Component {
         process.env.MY_PHONE_NUMBER            TO STORE MY NUMBER
 
         */
-        client.messages.create({
-            to:'+94705143507',
-            from:'+18606153924',
-            body:'Your Code: '+this.state.code
-        }).then((message)=>console.log(message.sid)).catch((err)=>console.log(err));
+        alert(this.state.phoneNo);
+        var body = {"accountQuantity":this.state.amount,"phoneNo":this.state.phoneNo};
+        fetch("http://localhost:9090/accounts/sendSMS",{
+                                    method: "POST",
+                                    async:"false",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Accept": "application/json"
+                                    },
+                                    body:JSON.stringify(body)}).then((res)=>{
+            debugger;
+            var response = res.json();
+            console.log(response);
+            var status = response.then((ress)=>{
+                console.log(ress);
+                ress.accountQuantity;
+                if(ress!==null&&ress.accountQuantity!==""){
+                    this.setState({balance:ress.accountQuantity,account:ress.accountNo});
+                    alert("Code sent to the phone number");
+                }else{
+                    console.error(ress);
+                }
+
+            }).catch((err)=>{
+                console.error(err);
+            });
+            
+
+        }).catch((err)=>{
+            debugger;
+            console.log(err);
+            alert("Error!");
+        });
+    }
+    handleAmount(e){
+        var amount = e.target.value;
+        amount = parseFloat(amount);
+        this.setState({amount:amount});
+    }
+    handlePhone(e){
+        var Phone=e.target.value
+        this.setState({phoneNo:Phone});
+
     }
 
     validateVerification(e){
+
         console.log(e);
+        var body = {"accountQuantity":this.state.amount,"phoneNo":this.state.phoneNo};
+        fetch("http://localhost:9090/accounts/recharge/"+this.state.code,{
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Accept": "application/json",
+                                    },
+                                    body:JSON.stringify(body)}).then((res)=>{
+            debugger;
+            var response = res.json();
+            var status = response.then((ress)=>{
+                if(ress.accountQuantity!==null){
+                    this.setState({balance:ress.accountQuantity,account:ress.accountNo});
+                    alert(this.state.phoneNo+" is  billed Rs/= "+this.state.amount);
+                }
+            }).catch((err)=>{
+                console.error(err);
+            })
+            // var a = res.json().accountQuantity;
+            // a = res.json()[["PromiseValue"]].accountQuantity;
+            // console.log(a);
+            
+            
+        }).catch((err)=>{
+            console.log(err);
+            alert("Error");
+        })
 
         if(e.keyCode === 13){//pressed enter
             if(e.target.value!==this.state.code.toString())
@@ -46,17 +116,45 @@ class Recharge extends Component {
              e.preventDefault();
         }
         if(e.target.value===this.state.code.toString()){
-                alert("Account Recharged");
+                // alert("Account Recharged");
                 
             }
 
            
     }
     render() { 
-        let currentBalance="$"+this.state.balance;
-        let currentAccount="Account "+this.state.account.toString().substring(0,3)+" "
+        let currentBalance=""+this.state.balance;
+        let currentAccount=""+this.state.account.toString().substring(0,3)+" "
                                         +this.state.account.toString().substring(3,6)+" "
                                             +this.state.account.toString().substring(6,9);
+        let phoneNum = ""+this.state.phoneNo;
+        let div=(<div></div>);
+        let bal = (<div></div>);
+        let acc = (<div></div>);
+        let pho = (<div></div>);
+        if(this.state.phoneNo!==""){
+            pho=(<h5>Phone No:   <small>{phoneNum}</small></h5>);
+            if(this.state.balance!=="")
+                bal=(<h5>Balance:    <small>{currentBalance}</small></h5>);
+            if(this.state.account!=="")
+                acc=(<h5>Account No: <small>{currentAccount}</small></h5>);
+            div =       (
+                                        <div className="row justify-content-left">
+                                        <div className="col">
+                                            <div className="card bg-light h-100 border-info d-flex p-2">
+                                                <div class="card-header lead">
+                                                            <h4>Account Information</h4>
+                                                            {bal}
+                                                            {acc}
+                                                            {pho}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                     )    
+            
+        }
         return ( 
             <div>
                 <div className="reChargeAccount">
@@ -68,18 +166,8 @@ class Recharge extends Component {
                             <br />
                         </div>
                     </div>
-                     <div className="row justify-content-left">
-                        <div className="col">
-                            <div className="card bg-light h-100 border-info d-flex p-2">
-                                <div class="card-header lead">
-                                    <p>{currentBalance}</p>
-                                    <br />
-                                    <p>{currentAccount}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <form class="">
+                    {div}
+                    <form class="content">
                         <div className="row rechargeRowClass">
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <br />
@@ -88,7 +176,7 @@ class Recharge extends Component {
                                 <p><small>Mobile Number</small></p>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <input type="number" className="rechargeInputs" placeholder="Ex: 0771234567" ></input>
+                                <input type="number" className="rechargeInputs" placeholder="Ex: 0771234567" onChange={this.handlePhone}></input>
                             </div>
                         </div> 
                         <div className="row rechargeRowClass">
@@ -103,7 +191,7 @@ class Recharge extends Component {
                                     <div class="form-group form-inline">
                                         <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                                         <div class="form-text-Recharge">
-                                            <input type="number" className="rechargeInputsAmount" placeholder="Ex: 100" id="ramount" min={0}/>
+                                            <input type="number" className="rechargeInputsAmount" placeholder="Ex: 100" id="ramount" min={0} onChange={this.handleAmount}/>
                                             <label for="ramount" className="static-value-Recharge">Rs/=</label>
                                         </div>
                                     </div>
@@ -115,7 +203,7 @@ class Recharge extends Component {
                         <div className="row">
 
                             <div className="col rechargeCodeClass">
-                                    <button type="submit" onSubmit={this.sendCode} class="btn btn-secondary btn-lg">Get Code</button> 
+                                    <button type="submit" onClick={this.sendCode} class="btn btn-secondary btn-lg">Get Code</button> 
                             </div>
                         </div>
                         <div className="row">
@@ -126,7 +214,8 @@ class Recharge extends Component {
                                 <p className="lead">Please enter the 4 digit code received to your mobile to recharge this amount.</p>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <input type="number" className="verify-code-recharge" onKeyUp={this.validateVerification}></input>
+                                <input type="number" className="verify-code-recharge" onChange={this.checkCode}></input>
+                                <button type="button"   className="btn btn-success" onClick={this.validateVerification}>Submit Code</button>
                             </div>
                         </div>
                         <div className="row">
@@ -137,7 +226,7 @@ class Recharge extends Component {
                                 <p>Go Back</p>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <button type="button" className="btn btn-info btnDigiPassGoBack" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
+                                <button type="button" className="btn btn-info" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
                             </div>
                         </div>
                     </form> 
