@@ -4,8 +4,17 @@ import './home.css';
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            loggeduser : null
+        }
+
     }
+
+    componentWillMount(){
+        this.setState({loggeduser:this.props.loggeduser});
+        console.log(this.props.loggeduser);
+    }
+
     render() {
         return (
             <div>

@@ -8,6 +8,132 @@ class Registration extends Component {
 
         }
     }
+
+    addForeignCustomer(){
+        var ffname = document.getElementById("fCusFirstName").value;
+        var flname = document.getElementById("fCusLastName").value;
+        var fdob = document.getElementById("fCusDob").value;
+        var fpass = document.getElementById("fCusPassport").value;
+        var fpwd = document.getElementById("fCusPassword").value;
+        var fpwdcnf = document.getElementById("fCusPasswordConf").value;
+        var fcrdno = document.getElementById("fCusCreditCardNo").value;
+        var fcrdname = document.getElementById("fCusCreditCardName").value;
+        var fcvv = document.getElementById("fCusCvv").value;
+        var fexpiry = document.getElementById("fCusExpiry").value;
+
+        if(ffname==""){
+            alert("First Name Required");
+        }else if(flname==""){
+            alert("Last Name Required");
+        }else if(fdob==""){
+            alert("Date of Birth Required");
+        }else if(fpass==""){
+            alert("NIC Number Required");
+        }else if(fpwd==""){
+            alert("Password Required");
+        }else if(fcrdno==""){
+            alert("Payment Details Required");
+        }else if(fcrdname==""){
+            alert("Payment Details Required");
+        }else if(fcvv==""){
+            alert("Payment Details Required");
+        }else if(fexpiry==""){
+            alert("Payment Details Required");
+        }else if(fpwd!=fpwdcnf){
+            alert("Password Not Matching");
+        }else{
+            var bal=0;
+            var obj1 ={
+                id : fpass,
+                fname : ffname,
+                lname : flname,
+                dob : fdob,
+                password : fpwd,
+                balance : bal
+
+            }
+
+            fetch('http://localhost:9090/customer/add', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj1)
+            }).then(function () {
+                alert("Succesfully Registered!");
+            })
+
+        }
+
+    }
+
+    addLocalCustomer(){
+        var lfname = document.getElementById("lCusFirstName").value;
+        var llname = document.getElementById("lCusLastName").value;
+        var ldob = document.getElementById("lCusDob").value;
+        var lmob = document.getElementById("lCusMobile").value;
+        var lnic = document.getElementById("lCusNic").value;
+        var lpwd = document.getElementById("lCusPassword").value;
+        var lpwdcnf = document.getElementById("lCusPasswordConf").value;
+        var lcrdno = document.getElementById("lCusCreditCardNo").value;
+        var lcrdname = document.getElementById("lCusCreditCardName").value;
+        var lcvv = document.getElementById("lCusCvv").value;
+        var lexpiry = document.getElementById("lCusExpiry").value;
+
+        if(lfname==""){
+            alert("First Name Required");
+        }else if(llname==""){
+            alert("Last Name Required");
+        }else if(ldob==""){
+            alert("Date of Birth Required");
+        }else if(lmob==""){
+            alert("Contact Number Required");
+        }else if(lnic==""){
+            alert("NIC Number Required");
+        }else if(lpwd==""){
+            alert("Password Required");
+        }else if(lcrdno==""){
+            alert("Payment Details Required");
+        }else if(lcrdname==""){
+            alert("Payment Details Required");
+        }else if(lcvv==""){
+            alert("Payment Details Required");
+        }else if(lexpiry==""){
+            alert("Payment Details Required");
+        }else if(lpwd!=lpwdcnf){
+            alert("Password Not Matching");
+        }else if(lmob.length!=10){
+            alert("Incorrect Mobile Number");
+        }else{
+            var bal=0;
+            var obj ={
+                id : lnic,
+                fname : lfname,
+                lname : llname,
+                dob : ldob,
+                mobile : lmob,
+                password : lpwd,
+                balance : bal
+
+            }
+
+            fetch('http://localhost:9090/customer/add', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            }).then(function () {
+                alert("Succesfully Registered!");
+            })
+
+        }
+
+
+    }
+
     render() { 
         return (
             <div className="content card ">
@@ -72,7 +198,7 @@ class Registration extends Component {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group row">
-                                                        <label id="label">NIC</label>
+                                                        <label id="label">NIC (This will be your Username)</label>
                                                         <input type="text" className="form-control" id="lCusNic" placeholder="NIC"></input>
                                                     </div>
                                                 </div>
@@ -105,7 +231,7 @@ class Registration extends Component {
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
                                                                 <label id="label" >Name on Card</label>
-                                                                <input type="text" className="form-control" id="fCusCreditCardNo" placeholder="Name on Card"></input>
+                                                                <input type="text" className="form-control" id="lCusCreditCardName" placeholder="Name on Card"></input>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -114,7 +240,7 @@ class Registration extends Component {
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
                                                                 <label id="label" >Credit Card No</label>
-                                                                <input type="number" className="form-control" id="fCusCreditCardName" placeholder="Card No"></input>
+                                                                <input type="number" className="form-control" id="lCusCreditCardNo" placeholder="Card No"></input>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -127,7 +253,7 @@ class Registration extends Component {
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
                                                                 <label id="label" >CVV</label>
-                                                                <input type="text" className="form-control" id="fCusCreditCardName" placeholder="CVV"></input>
+                                                                <input type="text" className="form-control" id="lCusCvv" placeholder="CVV"></input>
                                                             </div>
                                                         </div>
 
@@ -137,7 +263,7 @@ class Registration extends Component {
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
                                                                 <label id="label" >Expiry MM/YY</label>
-                                                                <input type="text" className="form-control" id="fCusCreditCardName" placeholder="MM/YY"></input>
+                                                                <input type="text" className="form-control" id="lCusExpiry" placeholder="MM/YY"></input>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -157,7 +283,7 @@ class Registration extends Component {
                                             <div className="row">
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className="form-group row">
-                                                        <button type="button" class="btn btn-outline-primary btn-block" >Pay & Register</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-block" onClick={this.addLocalCustomer}>Pay & Register</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,7 +339,7 @@ class Registration extends Component {
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group row">
-                                                        <label id="label">Passport Number</label>
+                                                        <label id="label">Passport Number (This will be your Username)</label>
                                                         <input type="number" className="form-control" id="fCusPassport" placeholder="Passport Number"></input>
                                                     </div>
                                                 </div>
@@ -248,7 +374,7 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >Name on Card</label>
-                                                                    <input type="text" className="form-control" id="fCusCreditCardNo" placeholder="Name on Card"></input>
+                                                                    <input type="text" className="form-control" id="fCusCreditCardName" placeholder="Name on Card"></input>
                                                                 </div>
                                                             </div>
                                                          </div>
@@ -257,7 +383,7 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >Credit Card No</label>
-                                                                    <input type="number" className="form-control" id="fCusCreditCardName" placeholder="Card No"></input>
+                                                                    <input type="number" className="form-control" id="fCusCreditCardNo" placeholder="Card No"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -270,10 +396,9 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >CVV</label>
-                                                                    <input type="text" className="form-control" id="fCusCreditCardName" placeholder="CVV"></input>
+                                                                    <input type="text" className="form-control" id="fCusCvv" placeholder="CVV"></input>
                                                                 </div>
                                                             </div>
-
                                                         </div>
 
                                                         <div className="row">
@@ -301,7 +426,7 @@ class Registration extends Component {
                                                 <div className="row">
                                                     <div className="col-sm-12 col-md-12">
                                                         <div className="form-group row">
-                                                            <button type="button" class="btn btn-outline-primary btn-block" >Pay & Register</button>
+                                                            <button type="button" class="btn btn-outline-primary btn-block" onClick={this.addForeignCustomer} >Pay & Register</button>
                                                         </div>
                                                     </div>
                                                 </div>
