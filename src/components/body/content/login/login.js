@@ -1,16 +1,59 @@
 import React, { Component } from 'react';
+import './login.css';
 
 class Login extends Component {
     constructor(props) {
+
         super(props);
-        this.state = { 
+        this.logUser = this.logUser.bind(this);
+        this.state = {
 
         }
     }
+
+    logUser(){
+        var user = document.getElementById("username").value;
+        var pwd = document.getElementById("password").value;
+
+        fetch("http://localhost:9090/customer/getuser/"+user)
+            .then(res=>res.json())
+            .then(
+                (results)=> {
+
+                    if(results.password!=pwd){
+                        alert("Username or password Incorrect");
+                    }else {
+                        this.props.setLoggedUser(results);
+                        this.props.setMainBodyContent("home");
+
+                    }
+                    },
+                (error) => {
+                    alert("Username or password Incorrect");
+                }
+            )
+
+
+
+    }
     render() { 
-        return ( 
-            <div>
-                <button className="btn btnskip login btn-outline-dark text-black my-2 my-sm-0" type="button" onClick={()=> this.props.setMainBodyContent("home")}>Skip Login</button>
+        return (
+            <div className="body-login">
+            <div class="login-form">
+                <form>
+                    <div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
+                    <h4 class="modal-title">Login to Your Account</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="username" placeholder="Username" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" placeholder="Password" required="required"/>
+                    </div>
+
+                    <input type="button" class="btn btn-primary btn-block bg-info btn-lg" value="Login" onClick={this.logUser}/>
+                </form>
+                <div class="text-center small">Don't have an account? <a className="text-info" href="#" onClick={()=> this.props.setMainBodyContent("reg")}>Sign up</a></div>
+            </div>
             </div>
         );
     }
