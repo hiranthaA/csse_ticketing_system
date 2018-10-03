@@ -383,7 +383,7 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >Credit Card No</label>
-                                                                    <input type="number" className="form-control" id="fCusCreditCardNo" placeholder="Card No"></input>
+                                                                    <input type="number" className="form-control" id="fCusCreditCardName" placeholder="Card No"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -396,7 +396,7 @@ class Registration extends Component {
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
                                                                     <label id="label" >CVV</label>
-                                                                    <input type="text" className="form-control" id="fCusCvv" placeholder="CVV"></input>
+                                                                    <input type="text" className="form-control" id="fCusCreditCardName" placeholder="CVV"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
