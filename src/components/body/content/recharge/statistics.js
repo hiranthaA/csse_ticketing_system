@@ -1,5 +1,5 @@
 import React, { Component }                                             from 'react';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend}  from 'recharts';
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer}  from 'recharts';
 import './recharge.css';
 
 
@@ -111,16 +111,22 @@ class Statistics extends Component {
         console.log(data);
 
                 SimpleLineChart = (
-                    <LineChart width={600} height={500} data={this.state.data}
-                        margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                    <XAxis dataKey="name"/>
-                    <YAxis/>
-                    <CartesianGrid strokeDasharray="3 3"/>
-                    <Tooltip/>
-                    <Legend />
-                    <Line type="monotone" dataKey="travel" stroke="#8884d8" activeDot={{r: 8}}/>
-                    <Line type="monotone" dataKey="fare" stroke="#82ca9d" />
-                    </LineChart>
+
+                    <div className="modalChartRecharge">
+                        <ResponsiveContainer width="95%" height="85%">
+                            <LineChart data={this.state.data}
+                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                            <XAxis dataKey="name"/>
+                            <YAxis/>
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <Tooltip/>
+                            <Legend />
+                            <Line type="monotone" dataKey="travel" stroke="#8884d8" activeDot={{r: 8}}/>
+                            <Line type="monotone" dataKey="fare" stroke="#82ca9d" />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+
                 );
 
             //    })
@@ -138,14 +144,20 @@ class Statistics extends Component {
         return (
             <div className="modal fade bd-example-modal-lg supervisorView" id="addStatModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-Student">
+                    
+                        
+                    
                     <div className="modal-content modal-dialog-Student">
                         <div className="row">
+                            <h4>Journey(Spent Time and Fare)</h4>
+                        </div>
+                        <div className="row">
                             <div className=" col-sm-12 col-md-12 col-lg-12">
-                                <div className=" col-sm-4 col-md-4 col-lg-4"></div>
-                                <div className=" col-sm-8 col-md-8 col-lg-12">
+                                
+                                
                                     {SimpleLineChart}
                                     
-                                </div>
+                                
                             </div>
                         </div>
                     </div>

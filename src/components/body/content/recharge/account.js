@@ -87,7 +87,6 @@ class Account extends Component {
         this.setState({cardNo:e.target.value});
     }
     createAccount(e){
-        debugger;
         var accountNo = this.state.nic.substring(0,3)+this.state.phoneNo.substring(3,9);
         var body = {"cardNo":this.state.cardNo,"phoneNo":this.state.phoneNo,"passengerId":this.state.nic,"accountNo":accountNo};
         if(this.validate())
@@ -98,7 +97,6 @@ class Account extends Component {
                                             "Accept": "application/json",
                                         },
                                         body:JSON.stringify(body)}).then((res)=>{
-                            debugger;
                             var response = res.json();
                             var status = response.then((ress)=>{
                                 if(ress.nic!==null){
