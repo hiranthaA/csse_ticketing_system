@@ -38,9 +38,9 @@ class Login extends Component {
     }
     render() { 
         return (
-            <div className="body-login">
-            <div class="login-form">
-                <form>
+            <div className="body-login col-sm-12 col-md-12 col-lg-12">
+            <div className="login-form col-sm-8 col-md-8 col-lg-12">
+                <form className="login-form col-sm-8 col-md-8 col-lg-4">
                     <div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
                     <h4 class="modal-title">Login to Your Account</h4>
                     <div class="form-group">
