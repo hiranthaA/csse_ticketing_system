@@ -6,9 +6,15 @@ class DigitalPass extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: "123456"
+            loggeduser : null
         }
     }
+
+    componentWillMount(){
+        console.log(this.props.loggeduser);
+        this.setState({loggeduser : this.props.loggeduser});
+    }
+
     render() {
         return (
             <div>
@@ -24,7 +30,7 @@ class DigitalPass extends Component {
                     </div>
                     <div className="row justify-content-center">
                         <div className="card qrcard border-info">
-                            <QRCode value={this.state.userId}></QRCode>
+                            <QRCode value={this.state.loggeduser.id}></QRCode>
                         </div>
                     </div>
                     <div className="row">

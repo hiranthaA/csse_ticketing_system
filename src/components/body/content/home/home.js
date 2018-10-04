@@ -4,8 +4,16 @@ import './home.css';
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            loggeduser : null
+        }
     }
+
+    componentWillReceiveProps(){
+        console.log(this.props.loggeduser);
+        this.setState({loggeduser : this.props.loggeduser});
+    }
+
     render() {
         return (
             <div>
@@ -14,7 +22,7 @@ class Home extends Component {
                     <div class="card-body">
                         <div className="row">
                             <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                                <h4 class="card-title">John Doe</h4>
+                                <h4 class="card-title">Hello, {this.props.loggeduser.fname}</h4>
                                 <p class="card-text">Welcome to Travel Pay</p>
                             </div>
                             <div className="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
