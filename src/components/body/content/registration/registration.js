@@ -49,14 +49,15 @@ class Registration extends Component {
         }else{
             var bal=0;
             var obj1 ={
-                id : fpass,
+                nicorpassport : fpass,
                 fname : ffname,
                 lname : flname,
                 dob : fdob,
                 password : fpwd,
                 balance : bal,
                 customerType : "foreign",
-                expDate : date
+                expDate : date,
+                passport : fpass
 
             }
             console.log(obj1);
@@ -116,14 +117,15 @@ class Registration extends Component {
         }else{
             var bal=0;
             var obj ={
-                id : lnic,
+                nicorpassport : lnic,
                 fname : lfname,
                 lname : llname,
                 dob : ldob,
                 mobile : lmob,
                 password : lpwd,
                 balance : bal,
-                customerType : "local"
+                customerType : "local",
+                nic : lnic
 
             }
             console.log(obj);
@@ -281,7 +283,7 @@ class Registration extends Component {
                                                         <div className="col-sm-6 col-md-8">
                                                             <div className="form-group row">
                                                                 <label id="label" >Amount</label>
-                                                                <input type="text" className="form-control" id="fCusCreditCardName" value="Rs.100.00" readOnly></input>
+                                                                <input type="text" className="form-control" value="Rs.100.00" readOnly></input>
                                                             </div>
                                                         </div>
                                                     </div>
