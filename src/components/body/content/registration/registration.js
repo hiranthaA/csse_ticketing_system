@@ -69,8 +69,26 @@ class Registration extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(obj1)
-            }).then(function () {
-                alert("Succesfully Registered!");
+            }).then(function (data) {
+                /*alert("Succesfully Registered!");*/
+                return data.json();
+            }).then(function (data){
+                console.log("return2", data);
+                var passengerId = (data.nicorpassport);
+                var objAcc = {
+                    passengerId: passengerId,
+                    accountQuantity: 0
+                };
+                return fetch('http://localhost:9090/accounts/add', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(objAcc)
+                }).then(function () {
+                    alert("Succesfully Registered!");
+                });
             })
 
         }
@@ -137,7 +155,25 @@ class Registration extends Component {
                 },
                 body: JSON.stringify(obj)
             }).then(function () {
-                alert("Succesfully Registered!");
+                /*alert("Succesfully Registered!");*/
+                return data.json();
+            }).then(function (data){
+                console.log("return2", data);
+                var passengerId = (data.nicorpassport);
+                var objAcc = {
+                    passengerId: passengerId,
+                    accountQuantity: 0
+                };
+                return fetch('http://localhost:9090/accounts/add', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(objAcc)
+                }).then(function () {
+                    alert("Succesfully Registered!");
+                });
             })
 
         }
