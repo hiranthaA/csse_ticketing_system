@@ -257,9 +257,9 @@ class Recharge extends Component {
                             </div>
                             <br/>
                             <div className="row">
-
-                                <div className="col rechargeCodeClass">
-                                        <button type="submit" onClick={this.sendCode} class="btn btn-secondary btn-lg">Get Code</button> 
+                            <div className="col-7"></div>
+                                <div className="col-5 rechargeCodeClass">
+                                        <button type="button" onClick={this.sendCode} class="btn btn-secondary createAccountPay btn-lg">Get Code</button> 
                                 </div>
                             </div>
                             <div className="row">
