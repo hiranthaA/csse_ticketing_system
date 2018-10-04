@@ -154,7 +154,7 @@ class Registration extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(obj)
-            }).then(function () {
+            }).then(function (data) {
                 /*alert("Succesfully Registered!");*/
                 return data.json();
             }).then(function (data){
