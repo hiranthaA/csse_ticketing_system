@@ -24,6 +24,13 @@
 	color:#444;
 	top:1vh;
 }
+.modal-dialog-Student{
+    max-width: 100%;
+    width: 700px;
+    max-height: 500px;
+    height: 500px;
+    text-align: center;
+}
 .createAccountPay{
     display: block;
     width: 100%;

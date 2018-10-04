@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './recharge.css';
 import Account              from './account';
+import Statistics           from "./statistics";
 
 
 class Recharge extends Component {
@@ -12,7 +13,7 @@ class Recharge extends Component {
         this.checkCode = this.checkCode.bind(this);
         this.handleAmount = this.handleAmount.bind(this);
         this.addAccount = this.addAccount.bind(this);
-        
+        this.showStatistics = this.showStatistics.bind(this);
         this.state = { 
             balance:"",
             account:"",
@@ -22,6 +23,7 @@ class Recharge extends Component {
             createAccount:false,
             customerID:"",
             loggedIn:false,
+            statistics:false
         }
     }
     componentDidUpdate(){
@@ -65,12 +67,11 @@ class Recharge extends Component {
                                         "Accept": "application/json"
                                     },
                                     body:JSON.stringify(body)}).then((res)=>{
-            debugger;
+
             var response = res.json();
             console.log(response);
             var status = response.then((ress)=>{
                 console.log(ress);
-                ress.accountQuantity;
                 if(ress!==null&&ress.accountQuantity!==""){
                     this.setState({balance:ress.accountQuantity,account:ress.accountNo});
                     alert("Code sent to the phone number");
@@ -84,7 +85,7 @@ class Recharge extends Component {
             
 
         }).catch((err)=>{
-            debugger;
+
             console.log(err);
             alert("Error!");
         });
@@ -99,6 +100,14 @@ class Recharge extends Component {
         this.setState({phoneNo:Phone});
 
     }
+    showStatistics(e){
+        this.setState({statistics:true});
+        var element = document.getElementById("addStatModal")
+        if(this.state.statistics===true&&element!==null){
+            window.$('#addStatModal').modal('show');
+            window.$('#addStatModal').style="padding-right:0px";
+        }
+    }
 
     validateVerification(e){
 
@@ -112,7 +121,6 @@ class Recharge extends Component {
                                         "Accept": "application/json",
                                     },
                                     body:JSON.stringify(body)}).then((res)=>{
-            debugger;
             var response = res.json();
             var status = response.then((ress)=>{
                 if(ress.accountQuantity!==null){
@@ -302,6 +310,10 @@ class Recharge extends Component {
             
             addAccount =(<Account account={this.state} loggeduser={this.props.loggeduser}/>);
         }
+        let statistics;
+        if(this.state.statistics!==false){
+            statistics=(<Statistics account={this.state} loggeduser={this.props.loggeduser}/>);
+        }
         var account = this.state.customerID.substring(0,3)+this.state.phoneNo.substring(3,9)
         let currentBalance=""+this.state.balance;
         let currentAccount=""+account.substring(0,3)+" "
@@ -324,10 +336,13 @@ class Recharge extends Component {
                                         <div className="col">
                                             <div className="card bg-light h-100 border-info d-flex p-2">
                                                 <div class="card-header lead">
+
                                                             <h4>Account Information</h4>
                                                             {bal}
                                                             {acc}
                                                             {pho}
+                                                    
+                                                
                                                 </div>
                                             </div>
                                         </div>
@@ -345,6 +360,12 @@ class Recharge extends Component {
                             <br />
                             <br/>
                             <br />
+                            
+                            <div className="row">
+                                    <div className="col rechargeCodeClass"> 
+                                        <button type="button" className="btn btn-primary" onClick={this.showStatistics}>Statistics</button>
+                                    </div>
+                            </div>
                         </div>
                     </div>
                     {div}
@@ -353,6 +374,7 @@ class Recharge extends Component {
                     </div>
                 </div>
                 {addAccount}
+                {statistics}
             </div>
         );
     }
