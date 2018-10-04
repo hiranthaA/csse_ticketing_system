@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './recharge.css'
+import './recharge.css';
+import Account              from './account';
 
 
 class Recharge extends Component {
@@ -10,12 +11,24 @@ class Recharge extends Component {
         this.sendCode = this.sendCode.bind(this);
         this.checkCode = this.checkCode.bind(this);
         this.handleAmount = this.handleAmount.bind(this);
+        this.addAccount = this.addAccount.bind(this);
+        
         this.state = { 
             balance:"",
             account:"",
             code:0,
             phoneNo:"",
-            amount:0
+            amount:0,
+            createAccount:false,
+            customerID:""
+        }
+    }
+    addAccount(e){
+        this.setState({createAccount:true});
+        var element = document.getElementById("addAccModal")
+        if(this.state.createAccount===true&&element!==null){
+            window.$('#addAccModal').modal('show');
+            window.$('#addAccModal').style="padding-right:0px";
         }
     }
     checkCode(e){
@@ -123,6 +136,13 @@ class Recharge extends Component {
            
     }
     render() { 
+
+        let addAccount;
+        if(this.state.createAccount!==false){
+            
+            addAccount =(<Account account={this.state} loggedUser={this.props.loggedUser}/>);
+        }
+
         let currentBalance=""+this.state.balance;
         let currentAccount=""+this.state.account.toString().substring(0,3)+" "
                                         +this.state.account.toString().substring(3,6)+" "
@@ -214,23 +234,33 @@ class Recharge extends Component {
                                 <p className="lead">Please enter the 4 digit code received to your mobile to recharge this amount.</p>
                             </div>
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <input type="number" className="verify-code-recharge" onChange={this.checkCode}></input>
-                                <button type="button"   className="btn btn-success" onClick={this.validateVerification}>Submit Code</button>
+                                <div className="row">
+                                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        <input type="number" className="verify-code-recharge rechargeInputs" placeholder="Enter your 4 digit Code Here" onChange={this.checkCode}></input>
+                                    </div>
+                                    <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        <button type="button"   className="btn btn-success createAccountPay" onClick={this.validateVerification}>Submit Code</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <br/>
                         <div className="row">
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <br />
-                                <br />
-                                <br />
-                                <p>Go Back</p>
+
+                            <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                                
+                                <h3><font color="green">No Account!</font></h3>
                             </div>
-                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                <button type="button" className="btn btn-info createAccountPay" onClick={this.addAccount}>Create Account</button>
+                            </div>
+                            <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
                                 <button type="button" className="btn btn-info" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
                             </div>
                         </div>
                     </form> 
                 </div>
+                {addAccount}
             </div>
         );
     }

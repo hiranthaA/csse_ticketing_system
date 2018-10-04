@@ -21,6 +21,11 @@
 	color:#444;
 	top:1vh;
 }
+.createAccountPay{
+    display: block;
+    width: 100%;
+    height:100%;
+}
 .form-text-Recharge{
     position: relative;
     width: 100%;
@@ -32,15 +37,58 @@
     border-color: green;
     border-radius: 8px;
 }
-
+@media not all and (min-height: 900px) {
+    .static-value-Recharge{
+        position:absolute;
+        left:10px;
+        font-weight:bold;
+        font-size:1rem;
+        color:#444;
+        top:8px;
+    }
+    .rechargeInputs{
+        width:100%;
+        height: 40px;
+        padding:5px 5px;
+        border-radius: 8px;
+    }
+    .rechargeInputsAmount{
+        width:100%;
+        height: 40px;
+        padding:5px 5px 5px 50px;
+        border-radius: 8px;
+    }
+}
+@media not all and (min-width: 620px) {
+    .static-value-Recharge{
+        position:absolute;
+        left:10px;
+        font-weight:bold;
+        font-size:1rem;
+        color:#444;
+        top:8pxh;
+    }
+    .rechargeInputs{
+        width:100%;
+        height: 40px;
+        padding:5px 5px;
+        border-radius: 8px;
+    }
+    .rechargeInputsAmount{
+        width:100%;
+        height: 40px;
+        padding:5px 5px 5px 50px;
+        border-radius: 8px;
+    }
+}
 @media not all and (max-width: 620px) {
         .static-value-Recharge{
             position:absolute;
             left:10px;
             font-weight:bold;
-            font-size:1rem;
+            font-size:1.1rem;
             color:#444;
-            top:1vh;
+            top:13px;
     }
 }
 
