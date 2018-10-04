@@ -20,12 +20,20 @@ class Account extends Component {
 
     }
     componentDidMount(){
-        document.getElementById("NIC").value = this.props.loggedUser.passengerId;
+        this.setState({
+            nic:this.props.loggeduser.nicorpassport,
+            phoneNo:this.props.loggeduser.mobile
+        })
+        document.getElementById("NIC").value = this.props.loggeduser.nicorpassport;
+        document.getElementById("mobileNo").value = this.props.loggeduser.mobile;
         window.$('#addAccModal').modal('show');
         window.$('#addAccModal').style="padding-right:0px";
     }
     validate(){
-        var valid,validPhone,validNIC,validCard =false;
+        var valid=false;
+        var validPhone=false;
+        var validNIC = false;
+        var validCard =false;
         var text;
         text = this.state.phoneNo;
         if(text===""){
@@ -50,7 +58,7 @@ class Account extends Component {
             validNIC= false;
         } else {
 
-            validNIC= /^\[0-9]{9}[VvXx]$/.test(text);
+            validNIC= /[0-9]{9}[VvXx]/.test(text);
             
         }
 
@@ -59,8 +67,8 @@ class Account extends Component {
         if(format.test(text)){
             validCard= false;
         } else {
-
-            validCard= /^\[0-9]{9}[VvXx]$/.test(text);
+            validCard= true;
+            // validCard= /^\[0-9]{9}[VvXx]$/.test(text);
             
         }
         if(validCard&&validNIC&&validPhone){
@@ -79,9 +87,11 @@ class Account extends Component {
         this.setState({cardNo:e.target.value});
     }
     createAccount(e){
-        var body = {"cardNo":this.state.cardNo,"phoneNo":this.state.phoneNo,"passengerId":this.state.nic};
+        debugger;
+        var accountNo = this.state.nic.substring(0,3)+this.state.phoneNo.substring(3,9);
+        var body = {"cardNo":this.state.cardNo,"phoneNo":this.state.phoneNo,"passengerId":this.state.nic,"accountNo":accountNo};
         if(this.validate())
-            fetch("http://localhost:9090/accounts/add/"+this.state.code,{
+            fetch("http://localhost:9090/accounts/add",{
                                         method: "POST",
                                         headers: {
                                             "Content-Type": "application/json",
@@ -93,7 +103,7 @@ class Account extends Component {
                             var status = response.then((ress)=>{
                                 if(ress.nic!==null){
 
-                                    alert("Account created for: "+ress.nic);
+                                    alert("Account created for: "+ress.passengerId);
                                 }
                             }).catch((err)=>{
                                 console.error(err);
@@ -118,7 +128,7 @@ class Account extends Component {
                                                     <label for="NIC">Enter NIC:<font color="red">*</font></label>
                                                 </div>
                                                 <div className="col-sm-6 col-md-6">
-                                                    <input type="number" id="NIC" placeholder="Ex: 901121234v -Required" value={this.state.nic} onChange={this.nicChange}  required={true}></input>
+                                                    <input type="text" id="NIC" placeholder="Ex: 901121234v -Required" value={this.state.nic} onChange={this.nicChange}  required={true}></input>
                                                 </div>
                                             </div>
                                             <div className="row">

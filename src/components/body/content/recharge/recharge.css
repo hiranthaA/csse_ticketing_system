@@ -1,3 +1,6 @@
+.rechargeText{
+    
+}
 .rechargeInputsAmount{
     width:100%;
     height: 5vh;
@@ -68,6 +71,9 @@
         color:#444;
         top:8pxh;
     }
+    .rechargeText{
+        font-size: 3.5vw;
+    }
     .rechargeInputs{
         width:100%;
         height: 40px;
@@ -82,13 +88,14 @@
     }
 }
 @media not all and (max-width: 620px) {
-        .static-value-Recharge{
+        
+    .static-value-Recharge{
             position:absolute;
             left:10px;
             font-weight:bold;
             font-size:1.1rem;
             color:#444;
-            top:13px;
+            top:1vh;
     }
 }
 
