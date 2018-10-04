@@ -13,6 +13,18 @@
     padding-right: 36px;
 }
 
+colJourney{
+    padding-left: 0px;
+}
+
+colRecharge{
+    padding-left: 0px;
+}
+
+colDigiPass{
+    padding-left: 0px;
+}
+
 .thumbnail{
     max-width: 11rem;
     max-height: 11rem;
