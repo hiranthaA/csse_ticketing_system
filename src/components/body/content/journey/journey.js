@@ -6,9 +6,15 @@ class Journey extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            loggeduser : null
         }
     }
+
+    componentWillMount(){
+        console.log(this.props.loggeduser);
+        this.setState({loggeduser : this.props.loggeduser});
+    }
+
     render() {
         return (
             <div>
@@ -22,12 +28,12 @@ class Journey extends Component {
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <br/>
-                        <TableCurrent currentuser="1"/>
+                        <TableCurrent currentuser={this.state.loggeduser.id}/>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="table-responsive">
                         <br/>
-                            <TableCompleted currentuser="1"/>
+                            <TableCompleted currentuser={this.state.loggeduser.id}/>
                         </div>
                     </div>
                 </div>
