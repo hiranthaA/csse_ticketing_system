@@ -5,6 +5,7 @@ class TableCurrent extends Component {
     constructor(props) {
         super(props);
         this.getOnboard = this.getOnboard.bind(this);
+        this.loadData = this.loadData.bind(this);
         this.state = {
             onboardStatus : null, 
             journeyid : null,
@@ -15,13 +16,34 @@ class TableCurrent extends Component {
             jstarttime : null,
             jendtime : null,
             jstatus : null,
-            jfare : null
+            jfare : null,
+            currloc : null
          }
     }
 
     componentWillMount(){
         this.getOnboard();
     }
+
+
+    componentDidMount() {
+        this.loadData();
+        setInterval(this.loadData, 30000);
+    }
+    
+    async loadData() {
+        try {
+        const res = await fetch('http://localhost:9090/bus/getcurrentlocation?busId=LT-8712');
+        const blocks = await res.json();
+        const curloc = blocks.currentLocation;
+        console.log(curloc);
+        this.setState({currloc: curloc});
+    } catch (e) {
+        console.log(e);
+    }
+    }
+
+
     getOnboard() {
         Axios.get('http://localhost:9090/journey/getonboardcust/?cid='+this.props.currentuser).then(function (res) {
             console.log(res.data);
@@ -60,10 +82,13 @@ class TableCurrent extends Component {
                 <div>
                     <br/>
                     <p className="font-weight-bold ">You are Onboard</p>
-                    <p>Bus Route  : {this.state.busroot}</p>
                     <p className="font-italic">from</p>
                     <h3 className="text-success">{this.state.jstartloc}</h3>
+                    <p className="font-italic">currently at</p>
+                    <h3 className="text-info">{this.state.currloc}</h3>
                     <p>{this.state.jstarttime}</p>
+                    <p>Route  : {this.state.busroot}</p>
+                    <p>Bus  : {this.state.busid}</p>
                     <p>Journey ID : </p>
                     <p>{this.state.journeyid}</p>
                 </div>
