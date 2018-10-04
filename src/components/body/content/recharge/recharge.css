@@ -107,8 +107,9 @@
         text-align: center;
         margin: auto;
     }
-    .rechargeText{
-        font-size: 3.5vw;
+    .rechargeText {
+        font-size: 4vw;
+        width: 74px;
     }
     .rechargeInputs{
         width:100%;
