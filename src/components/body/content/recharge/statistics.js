@@ -17,7 +17,7 @@ class Statistics extends Component {
     componentDidMount(){
         this.getJourney().then((res)=>{
             var data = [];
-            debugger;
+
             res.forEach((element)=>{
                 data.push(JSON.parse(JSON.stringify(element)));
             })

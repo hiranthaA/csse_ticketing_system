@@ -88,7 +88,7 @@ class Account extends Component {
     }
     createAccount(e){
         var accountNo = this.state.nic.substring(0,3)+this.state.phoneNo.substring(3,9);
-        var body = {"cardNo":this.state.cardNo,"phoneNo":this.state.phoneNo,"passengerId":this.state.nic,"accountNo":accountNo};
+        var body = {"cardNo":this.state.cardNo,"phoneNo":this.state.phoneNo,"passengerId":this.state.nic,"accountNo":accountNo,"accountQuantity":100};
         if(this.validate())
             fetch("http://localhost:9090/accounts/add",{
                                         method: "POST",

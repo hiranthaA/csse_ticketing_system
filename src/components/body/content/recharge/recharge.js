@@ -37,6 +37,18 @@ class Recharge extends Component {
             console.log(this.props.loggeduser);
             this.setState({phoneNo:this.props.loggeduser.mobile,loggedIn:true});
             document.getElementById("userMobile").value=this.props.loggeduser.mobile;
+            fetch("http://localhost:9090/accounts/getbyid/?id="+this.props.loggeduser.nicorpassport).then(
+                        res=>res.json()               
+                    ).then((response)=>{
+                        console.log(response);
+                        if(response.passengerId!==null&&response.accountQuantity!=null){
+                            this.setState({balance:response.accountQuantity});
+                        if(response.accountNo!=null)
+                            this.setState({account:response.accountNo})
+                        }   
+                }).catch((err)=>{
+                    console.error(err);
+                })
         }else{
 
             alert("You are not logged in!");
