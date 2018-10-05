@@ -53,7 +53,8 @@ class Statistics extends Component {
                                                     journey.pop();
                                                     ress.forEach(element => {
                                                         var time = parseInt((Date.parse( element.jendtime)-Date.parse(element.jstarttime))/1000);
-                                                        journey.push((JSON.parse(JSON.stringify({name:element.journeyId,fare:parseInt(element.jfare),travel:time}))));
+                                                        var date = element.jstarttime.split('T')[0]+" "+ element.jstarttime.split('T')[1].split('+')[0].split('.')[0];
+                                                        journey.push((JSON.parse(JSON.stringify({name:date,fare:parseInt(element.jfare),travel:time}))));
                                                     });
                                                    console.log(JSON.stringify(journey));
                                                    this.setState({data:journey});
