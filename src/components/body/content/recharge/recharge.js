@@ -228,15 +228,15 @@ class Recharge extends Component {
                             <br/>
                             <div className="row">
 
-                                <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                                {/* <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
                                     
                                     <h3 className="rechargeText"><font color="green">No Account!</font></h3>
                                 </div>
                                 <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
                                     <button type="button" className="btn btn-success createAccountPay" onClick={this.addAccount} disabled={true}>Create Account</button>
-                                </div>
-                                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <button type="button" className="btn btn-info createAccountPay" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
+                                </div> */}
+                                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 gobackButtonRecharge" >
+                                    <button type="button" className="btn btn-info" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
                                 </div>
                             </div>
                         </form> 
@@ -303,15 +303,15 @@ class Recharge extends Component {
                             <br/>
                             <div className="row">
 
-                                <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                                {/* <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
                                     
                                     <h3 className="rechargeText"><font color="green">No Account!</font></h3>
                                 </div>
                                 <div className="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
                                     <button type="button" className="btn btn-success createAccountPay" onClick={this.addAccount}>Create Account</button>
-                                </div>
-                                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <button type="button" className="btn btn-info createAccountPay" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
+                                </div> */}
+                                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 gobackButtonRecharge">
+                                    <button type="button" className="btn btn-info" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
                                 </div>
                             </div>
                         </form> 
@@ -366,7 +366,7 @@ class Recharge extends Component {
         return ( 
             <div>
                 <div className="reChargeAccount card bg-light border-info d-flex p-2">
-                    <div className="row card-header bg-info">
+                    <div className="row card-header bg-info rechargeCardHeader">
                         <div className="col">
                             <h4>ACCOUNT RECHARGE</h4>
                             <br />
