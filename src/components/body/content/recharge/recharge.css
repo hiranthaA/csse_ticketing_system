@@ -31,6 +31,9 @@
     height: 500px;
     text-align: center;
 }
+.goBackBtnrec{
+    width:150px;
+}
 .gobackButtonRecharge{
     text-align: right;
     font-size: 3vw;

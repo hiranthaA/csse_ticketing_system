@@ -236,7 +236,7 @@ class Recharge extends Component {
                                     <button type="button" className="btn btn-success createAccountPay" onClick={this.addAccount} disabled={true}>Create Account</button>
                                 </div> */}
                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 gobackButtonRecharge" >
-                                    <button type="button" className="btn btn-info" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
+                                    <button type="button" className="btn btn-info goBackBtnrec" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
                                 </div>
                             </div>
                         </form> 
@@ -311,7 +311,7 @@ class Recharge extends Component {
                                     <button type="button" className="btn btn-success createAccountPay" onClick={this.addAccount}>Create Account</button>
                                 </div> */}
                                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 gobackButtonRecharge">
-                                    <button type="button" className="btn btn-info" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
+                                    <button type="button" className="btn btn-info goBackBtnrec" onClick={() => this.props.setMainBodyContent("home")}>Go Back</button>
                                 </div>
                             </div>
                         </form> 
