@@ -136,11 +136,20 @@ class Recharge extends Component {
             var response = res.json();
             var status = response.then((ress)=>{
                 if(ress.accountQuantity!==null){
-                    this.setState({balance:ress.accountQuantity,account:ress.accountNo});
-                    alert(this.state.phoneNo+" is  billed Rs/= "+this.state.amount);
+                    this.setState({balance:ress.accountQuantity,account:ress.accountNo,code:""});
+                    alert(this.state.phoneNo+" deposited Rs/= "+this.state.amount+" to "+this.props.loggeduser.nicorpassport);
+
+
+                }else{
+                    alert("Invalid verification code. Please try again.");
                 }
+                
             }).catch((err)=>{
                 console.error(err);
+                if(this.state.code===0||this.state.code==="")
+                    alert("Code is Required")
+                else
+                    alert("Try again.");
             })
             // var a = res.json().accountQuantity;
             // a = res.json()[["PromiseValue"]].accountQuantity;
