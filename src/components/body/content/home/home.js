@@ -33,7 +33,7 @@ class Home extends Component {
                                     <div className="colRecharge col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12">
                                         <button type="button" className="btn btn-info btnRecharge" onClick={()=> this.props.setMainBodyContent("recharge")}>Recharge</button>
                                     </div>
-                                    <div className="colRecharge col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12">
+                                    <div className="colDigiPass col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12">
                                         <button type="button" className="btn btn-info btnDigiPass" onClick={()=> this.props.setMainBodyContent("digitalpass")}>Digital Pass</button>
                                     </div>
                                 </div>
