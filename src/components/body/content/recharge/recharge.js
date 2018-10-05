@@ -37,7 +37,6 @@ class Recharge extends Component {
             console.log(this.props.loggeduser);
             this.setState({phoneNo:this.props.loggeduser.mobile,loggedIn:true});
             document.getElementById("userMobile").value=this.props.loggeduser.mobile;
-            debugger;
             fetch("http://localhost:9090/accounts/getbyid/?id="+this.props.loggeduser.nicorpassport).then(
                         res=>res.json()               
                     ).then((response)=>{
