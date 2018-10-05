@@ -44,7 +44,7 @@ class Recharge extends Component {
                         if(response.passengerId!==null&&response.accountQuantity!=null){
                             this.setState({balance:response.accountQuantity});
                         if(response.accountNo!=null)
-                            this.setState({account:response.accountNo})
+                            this.setState({account:this.props.loggeduser.nicorpassport})
                         }   
                 }).catch((err)=>{
                     console.error(err);
@@ -70,7 +70,7 @@ class Recharge extends Component {
     sendCode(e){
         
         alert(this.state.phoneNo);
-        var body = {"accountQuantity":this.state.amount,"phoneNo":this.state.phoneNo};
+        var body = {"accountQuantity":this.state.amount,"phoneNo":this.state.phoneNo,"passengerId":this.props.loggeduser.passengerId};
         fetch("http://localhost:9090/accounts/sendSMS",{
                                     method: "POST",
                                     async:"false",
@@ -85,7 +85,7 @@ class Recharge extends Component {
             var status = response.then((ress)=>{
                 console.log(ress);
                 if(ress!==null&&ress.accountQuantity!==""){
-                    this.setState({balance:ress.accountQuantity,account:ress.accountNo});
+                    this.setState({balance:ress.accountQuantity,account:this.props.loggeduser.nicorpassport});
                     alert("Code sent to the phone number");
                 }else{
                     console.error(ress);
@@ -136,7 +136,7 @@ class Recharge extends Component {
             var response = res.json();
             var status = response.then((ress)=>{
                 if(ress.accountQuantity!==null){
-                    this.setState({balance:ress.accountQuantity,account:ress.accountNo,code:""});
+                    this.setState({balance:ress.accountQuantity,account:this.props.loggeduser.nicorpassport,code:""});
                     alert(this.state.phoneNo+" deposited Rs/= "+this.state.amount+" to "+this.props.loggeduser.nicorpassport);
 
 
