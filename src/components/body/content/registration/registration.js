@@ -4,6 +4,8 @@ import './registration.css';
 class Registration extends Component {
     constructor(props) {
         super(props);
+        this.addForeignCustomer = this.addForeignCustomer.bind(this);
+        this.addLocalCustomer = this.addLocalCustomer.bind(this);
         this.state = { 
 
         }
@@ -62,34 +64,46 @@ class Registration extends Component {
             }
             console.log(obj1);
 
-            fetch('http://localhost:9090/customer/add', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(obj1)
-            }).then(function (data) {
-                /*alert("Succesfully Registered!");*/
-                return data.json();
-            }).then(function (data){
-                console.log("return2", data);
-                var passengerId = (data.nicorpassport);
-                var objAcc = {
-                    passengerId: passengerId,
-                    accountQuantity: 0
-                };
-                return fetch('http://localhost:9090/accounts/add', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json, text/plain',
-                        'Content-Type': 'application/json'
+            fetch("http://localhost:9090/customer/getuser/"+fpass)
+                .then(res=>res.json())
+                .then(
+                    (results)=> {
+
+                            alert("The Passport Number is already Registered with the system");
+
                     },
-                    body: JSON.stringify(objAcc)
-                }).then(function () {
-                    alert("Succesfully Registered!");
-                });
-            })
+                    (error) => {
+                        fetch('http://localhost:9090/customer/add', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json, text/plain',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(obj1)
+                        }).then(function (data) {
+                            /*alert("Succesfully Registered!");*/
+                            return data.json();
+                        }).then(function (data){
+                            console.log("return2", data);
+                            var passengerId = (data.nicorpassport);
+                            var objAcc = {
+                                passengerId: passengerId,
+                                accountQuantity: 0
+                            };
+                            return fetch('http://localhost:9090/accounts/add', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json, text/plain',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(objAcc)
+                            }).then(function () {
+                                alert("Succesfully Registered! Please Login...");
+                            });
+                        })
+                    }
+                )
+
 
         }
 
@@ -147,7 +161,46 @@ class Registration extends Component {
 
             }
             console.log(obj);
-            fetch('http://localhost:9090/customer/add', {
+            fetch("http://localhost:9090/customer/getuser/"+lnic)
+                .then(res=>res.json())
+                .then(
+                    (results)=> {
+
+                            alert("The NIC Number is already Registered with the system");
+
+                    },
+                    (error) => {
+                        fetch('http://localhost:9090/customer/add', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json, text/plain',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(obj)
+                        }).then(function (data) {
+                            /*alert("Succesfully Registered!");*/
+                            return data.json();
+                        }).then(function (data){
+                            console.log("return2", data);
+                            var passengerId = (data.nicorpassport);
+                            var objAcc = {
+                                passengerId: passengerId,
+                                accountQuantity: 0
+                            };
+                            return fetch('http://localhost:9090/accounts/add', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json, text/plain',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(objAcc)
+                            }).then(function () {
+                                alert("Succesfully Registered! Please Login...");
+                            });
+                        })
+                    }
+                )
+            /*fetch('http://localhost:9090/customer/add', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json, text/plain',
@@ -155,7 +208,7 @@ class Registration extends Component {
                 },
                 body: JSON.stringify(obj)
             }).then(function (data) {
-                /*alert("Succesfully Registered!");*/
+                /!*alert("Succesfully Registered!");*!/
                 return data.json();
             }).then(function (data){
                 console.log("return2", data);
@@ -174,7 +227,7 @@ class Registration extends Component {
                 }).then(function () {
                     alert("Succesfully Registered!");
                 });
-            })
+            })*/
 
         }
 
