@@ -31,11 +31,22 @@
     height: 500px;
     text-align: center;
 }
+.goBackBtnrec{
+    width:150px;
+}
+.gobackButtonRecharge{
+    text-align: right;
+    font-size: 3vw;
+    height: 100%;
+}
+.rechargeCardHeader{
+    margin: 10px;
+}
 .createAccountPay{
     display: block;
     width: 100%;
     height:100%;
-    font-size: 3vw;
+    font-size: 4vw;
 }
 .form-text-Recharge{
     position: relative;
