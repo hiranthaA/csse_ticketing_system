@@ -335,11 +335,11 @@ class Recharge extends Component {
         if(this.state.statistics!==false){
             statistics=(<Statistics account={this.state} loggeduser={this.props.loggeduser}/>);
         }
-        var account = this.state.customerID.substring(0,3)+this.state.phoneNo.substring(3,9)
+        var account = this.props.loggeduser.nicorpassport;
         let currentBalance=""+this.state.balance;
-        let currentAccount=""+account.substring(0,3)+" "
-                                        +account.substring(3,6)+" "
-                                            +account.toString().substring(6,9);
+        let currentAccount=""+account.toString().substring(0,3)+" "
+                                        +account.toString().substring(3,6)+" "
+                                            +account.toString().substring(6,10);
         let phoneNum = ""+this.state.phoneNo;
         let div=(<div></div>);
         let bal = (<div></div>);
