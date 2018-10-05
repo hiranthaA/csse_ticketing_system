@@ -366,7 +366,7 @@ class Recharge extends Component {
         return ( 
             <div>
                 <div className="reChargeAccount card bg-light border-info d-flex p-2">
-                    <div className="row card-header bg-info rechargeCardHeader">
+                    <div className="row card-header bg-secondary text-white rechargeCardHeader">
                         <div className="col">
                             <h4>ACCOUNT RECHARGE</h4>
                             <br />
