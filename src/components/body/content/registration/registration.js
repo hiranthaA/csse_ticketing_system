@@ -57,9 +57,7 @@ class Registration extends Component {
                 dob : fdob,
                 password : fpwd,
                 balance : bal,
-                customerType : "foreign",
-                expDate : date,
-                passport : fpass
+                customerType : "foreign"
 
             }
             console.log(obj1);
@@ -157,8 +155,6 @@ class Registration extends Component {
                 password : lpwd,
                 balance : bal,
                 customerType : "local",
-                nic : lnic
-
             }
             console.log(obj);
             fetch("http://localhost:9090/customer/getuser/"+lnic)
