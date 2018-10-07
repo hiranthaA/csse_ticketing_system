@@ -28,13 +28,13 @@ class TableCurrent extends Component {
         this.getOnboard();
     }
     
+    //this function will check for the current location of the bus every 30 seconds
     async loadData(busid) {
         this.setState({busid:busid});
         try {
             const res = await fetch('http://localhost:9090/bus/getcurrentlocation?busId='+this.state.onboarddetails.busId).then(res=>res.json())
             .then((results)=> {
                     Axios.get('http://localhost:9090/route/getHalt?routeId='+this.state.onboarddetails.busroute+'&haltIndex='+results.currentLocation).then(function (res) {
-                        console.log(res.data);
                         this.setState({endlocname : res.data.name});
                         return res.data;
                     }.bind(this))
@@ -45,10 +45,9 @@ class TableCurrent extends Component {
         }
     }
 
-
+    //will return details related to onboard if the customer is in onboard status
     getOnboard() {
         Axios.get('http://localhost:9090/journey/getonboardcust/?cid='+this.props.currentuser).then(function (res) {
-            console.log(res.data);
             return res.data;
         }.bind(this)).then(function (onboarddata) {
             if(onboarddata!==""){
@@ -58,27 +57,19 @@ class TableCurrent extends Component {
                 var startlocname;
 
                 Axios.get('http://localhost:9090/route/getHalt?routeId='+busroute+'&haltIndex='+startloc).then(function(res){
-                    console.log(res);
                     startlocname = res.data.name;
                     return res.data;
                     }.bind(this)).then(function(res){
-                        console.log(res);
-                        console.log(startlocname);
                         
                         Axios.get('http://localhost:9090/bus/getcurrentlocation?busId='+this.state.onboarddetails.busId).then(function (data) {
-                            console.log(data.data);
                             this.setState({currloc: data.data.currentLocation});
                             return data.data.currentLocation;
                         }.bind(this)).then(function(data){
-                            console.log(data);
                             this.loadData(onboarddata.busId);
                             setInterval(this.loadData, 30000);
                             Axios.get('http://localhost:9090/route/getHalt?routeId='+busroute+'&haltIndex='+data).then(function(res){
-                                console.log(res);
-                                console.log(res.data.name);
                                 return res.data.name;
                             }.bind(this)).then(function(endlocname){
-                                console.log("data found on passenger");
                                 this.setState({ onboardStatus: true });
                                 this.setState({ journeyid : onboarddata.journeyId });
                                 this.setState({ busid : onboarddata.busId });
@@ -92,7 +83,6 @@ class TableCurrent extends Component {
                         }.bind(this));
                     }.bind(this));
             }else{
-                console.log("data not found on passenger");
                 this.setState({ onboardStatus: false });
                 this.setState({ journeyid : "" });
                 this.setState({ busid : "" });
