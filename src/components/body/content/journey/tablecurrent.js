@@ -10,37 +10,39 @@ class TableCurrent extends Component {
             onboardStatus : null, 
             journeyid : null,
             busid : null,
-            busroot : null,
+            busroute : null,
             jstartloc : null,
             jendloc : null,
             jstarttime : null,
             jendtime : null,
             jstatus : null,
             jfare : null,
-            currloc : null
+            currloc : null,
+            onboarddetails : null,
+            startlocname : null,
+            endlocname : null
          }
     }
 
-    componentWillMount(){
+    componentDidMount() {
         this.getOnboard();
     }
-
-
-    componentDidMount() {
-        this.loadData();
-        setInterval(this.loadData, 30000);
-    }
     
-    async loadData() {
+    async loadData(busid) {
+        this.setState({busid:busid});
         try {
-        const res = await fetch('http://localhost:9090/bus/getcurrentlocation?busId=LT-8712');
-        const blocks = await res.json();
-        const curloc = blocks.currentLocation;
-        console.log(curloc);
-        this.setState({currloc: curloc});
-    } catch (e) {
-        console.log(e);
-    }
+            const res = await fetch('http://localhost:9090/bus/getcurrentlocation?busId='+this.state.onboarddetails.busId).then(res=>res.json())
+            .then((results)=> {
+                    Axios.get('http://localhost:9090/route/getHalt?routeId='+this.state.onboarddetails.busroute+'&haltIndex='+results.currentLocation).then(function (res) {
+                        console.log(res.data);
+                        this.setState({endlocname : res.data.name});
+                        return res.data;
+                    }.bind(this))
+                }
+            );
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 
@@ -48,23 +50,53 @@ class TableCurrent extends Component {
         Axios.get('http://localhost:9090/journey/getonboardcust/?cid='+this.props.currentuser).then(function (res) {
             console.log(res.data);
             return res.data;
-        }.bind(this)).then(function (data) {
-            if(data!==""){
-                console.log("data found on passenger");
-                this.setState({ onboardStatus: true });
-                this.setState({ journeyid : data.journeyId });
-                this.setState({ busid : data.busId });
-                this.setState({ busroot : data.busroot });
-                this.setState({ jstartloc : data.jstartloc });
-                this.setState({ jendloc : data.jendloc });
-                this.setState({ jstatus : data.jstatus });
-                this.setState({ jfare : data.jfare });
+        }.bind(this)).then(function (onboarddata) {
+            if(onboarddata!==""){
+                this.setState({onboarddetails : onboarddata});
+                var busroute=onboarddata.busroute;
+                var startloc = onboarddata.jstartloc;
+                var startlocname;
+
+                Axios.get('http://localhost:9090/route/getHalt?routeId='+busroute+'&haltIndex='+startloc).then(function(res){
+                    console.log(res);
+                    startlocname = res.data.name;
+                    return res.data;
+                    }.bind(this)).then(function(res){
+                        console.log(res);
+                        console.log(startlocname);
+                        
+                        Axios.get('http://localhost:9090/bus/getcurrentlocation?busId='+this.state.onboarddetails.busId).then(function (data) {
+                            console.log(data.data);
+                            this.setState({currloc: data.data.currentLocation});
+                            return data.data.currentLocation;
+                        }.bind(this)).then(function(data){
+                            console.log(data);
+                            this.loadData(onboarddata.busId);
+                            setInterval(this.loadData, 30000);
+                            Axios.get('http://localhost:9090/route/getHalt?routeId='+busroute+'&haltIndex='+data).then(function(res){
+                                console.log(res);
+                                console.log(res.data.name);
+                                return res.data.name;
+                            }.bind(this)).then(function(endlocname){
+                                console.log("data found on passenger");
+                                this.setState({ onboardStatus: true });
+                                this.setState({ journeyid : onboarddata.journeyId });
+                                this.setState({ busid : onboarddata.busId });
+                                this.setState({ busroute : onboarddata.busroute });
+                                this.setState({ jstartloc : onboarddata.jstartloc });
+                                this.setState({ jstatus : onboarddata.jstatus });
+                                this.setState({ jfare : onboarddata.jfare });
+                                this.setState({startlocname:startlocname});
+                                this.setState({endlocname : endlocname});
+                            }.bind(this));
+                        }.bind(this));
+                    }.bind(this));
             }else{
                 console.log("data not found on passenger");
                 this.setState({ onboardStatus: false });
                 this.setState({ journeyid : "" });
                 this.setState({ busid : "" });
-                this.setState({ busroot : "" });
+                this.setState({ busroute : "" });
                 this.setState({ jstartloc : "" });
                 this.setState({ jendloc : "" });
                 this.setState({ jstatus : "" });
@@ -83,11 +115,11 @@ class TableCurrent extends Component {
                     <br/>
                     <p className="font-weight-bold ">You are Onboard</p>
                     <p className="font-italic">from</p>
-                    <h3 className="text-success">{this.state.jstartloc}</h3>
+                    <h3 className="text-success">{this.state.startlocname}</h3>
                     <p className="font-italic">currently at</p>
-                    <h3 className="text-info">{this.state.currloc}</h3>
+                    <h3 className="text-info">{this.state.endlocname}</h3>
                     <p>{this.state.jstarttime}</p>
-                    <p>Route  : {this.state.busroot}</p>
+                    <p>Route  : {this.state.busroute}</p>
                     <p>Bus  : {this.state.busid}</p>
                     <p>Journey ID : </p>
                     <p>{this.state.journeyid}</p>
