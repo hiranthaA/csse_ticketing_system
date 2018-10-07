@@ -1,0 +1,15 @@
+{
+  "name": "csse_ticketing_system_app_fe",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
