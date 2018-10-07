@@ -29,7 +29,11 @@ class Statistics extends Component {
         window.$('#addStatModal').modal('show');
         window.$('#addStatModal').style="padding-right:0px";
     }
-
+    /**
+     * When component mounted this method called to get 
+     * logged user Journey details
+     * @param {HTMLButtonElement} e 
+     */
     getJourney(e){
         return new Promise((resolve, reject) => {
                 var journey=[];
@@ -83,31 +87,11 @@ class Statistics extends Component {
             data=this.state.data;
         }
         let SimpleLineChart;
-        // var a = this.getJourney().then(
-        //     (res)=>{
-        //         console.log(res+"res");
-        //         console.log("a"+a);
-        //        a.then((ress)=>{
-
-        //         console.log(ress);
-        //         console.log(ress.json());
        console.log(data);
        var array=[];
       
        const dataArray=data;
-       data = [
-        {name: 'Page A', uv: 4000, pv: 2400},
-        {name: 'Page B', uv: 3000, pv: 1398},
-        {name: 'Page C', uv: 2000, pv: 9800},
-        {name: 'Page D', uv: 2780, pv: 3908},
-        {name: 'Page E', uv: 1890, pv: 4800},
-        {name: 'Page F', uv: 2390, pv: 2312},
-        {name: 'Page G', uv: 3490, pv: 4300},
-        ];
-        // for (let index = 0; index < dataArray.length; index++) {
-        //     array[index]= dataArray.pop();
-            
-        // }
+
              
         console.log(data);
 

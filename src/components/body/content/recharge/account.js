@@ -29,6 +29,9 @@ class Account extends Component {
         window.$('#addAccModal').modal('show');
         window.$('#addAccModal').style="padding-right:0px";
     }
+    /**
+     * Validation for inputs
+     */
     validate(){
         var valid=false;
         var validPhone=false;
@@ -86,6 +89,11 @@ class Account extends Component {
     cardChange(e){
         this.setState({cardNo:e.target.value});
     }
+    /**
+     * Adds an account or updates existing 
+     * account of logged user
+     * @param {HTMLButtonElement} e 
+     */
     createAccount(e){
         var accountNo = this.state.nic.substring(0,3)+this.state.phoneNo.substring(3,9);
         var body = {"cardNo":this.state.cardNo,"phoneNo":this.state.phoneNo,"passengerId":this.state.nic,"accountNo":accountNo,"accountQuantity":100};
