@@ -13,7 +13,7 @@
     padding-right: 36px;
 }
 
-colJourney{
+/* colJourney{
     padding-left: 0px;
 }
 
@@ -23,7 +23,7 @@ colRecharge{
 
 colDigiPass{
     padding-left: 0px;
-}
+} */
 
 .thumbnail{
     max-width: 11rem;
@@ -43,10 +43,22 @@ colDigiPass{
     border : none;
 }
 
-.colJourney{
+/* .colJourney{
     margin : 10px;
 }
 
 .colRecharge{
     margin : 10px;
+} */
+
+.colRecharge{
+    padding: 15px;
+}
+
+.colDigiPass{
+    padding: 15px;
+}
+
+.colJourney{
+    padding: 15px;
 }
