@@ -3,7 +3,9 @@ import './recharge.css';
 import Account              from './account';
 import Statistics           from "./statistics";
 
-
+/**
+ * This is Recharge component
+ */
 class Recharge extends Component {
     constructor(props) {
         super(props);
@@ -32,6 +34,10 @@ class Recharge extends Component {
     componentWillMount(){
 
     }
+    
+    /**
+     * If Recharge component mounted, Get logged in user details
+     */
     componentDidMount(){
         if(this.props.loggeduser!==null){
             console.log(this.props.loggeduser);
@@ -55,6 +61,10 @@ class Recharge extends Component {
             this.setState({loggedIn:false})
         }
     }
+    /**
+     * On add account| not used 
+     * @param {HTMLButtonElement} e 
+     */
     addAccount(e){
         this.setState({createAccount:true});
         var element = document.getElementById("addAccModal")
@@ -63,14 +73,22 @@ class Recharge extends Component {
             window.$('#addAccModal').style="padding-right:0px";
         }
     }
+    /**
+     * When code entered component state, code assigned
+     * @param {HTMLInputElement} e 
+     */
     checkCode(e){
         var code = e.target.value;
         this.setState({code:code});
     }
+    /**
+     * Sends an validation sms to the entered mobile no
+     * @param {HTMLButtonElement} e 
+     */
     sendCode(e){
         
-        alert(this.state.phoneNo);
-        var body = {"accountQuantity":this.state.amount,"phoneNo":this.state.phoneNo,"passengerId":this.props.loggeduser.passengerId};
+        // alert(this.state.phoneNo);
+        var body = {"accountQuantity":this.state.amount,"phoneNo":this.state.phoneNo,"passengerId":this.props.loggeduser.nicorpassport};
         fetch("http://localhost:9090/accounts/sendSMS",{
                                     method: "POST",
                                     async:"false",
@@ -102,6 +120,7 @@ class Recharge extends Component {
             alert("Error!");
         });
     }
+
     handleAmount(e){
         var amount = e.target.value;
         amount = parseFloat(amount);
@@ -112,6 +131,10 @@ class Recharge extends Component {
         this.setState({phoneNo:Phone});
 
     }
+    /**
+     * shows the logged in user statistic
+     * @param {HTMLButtonElement} e 
+     */
     showStatistics(e){
         this.setState({statistics:true});
         var element = document.getElementById("addStatModal")
@@ -120,7 +143,10 @@ class Recharge extends Component {
             window.$('#addStatModal').style="padding-right:0px";
         }
     }
-
+    /**
+     * Submits entered validation code to verify and recharge
+     * @param {HTMLButtonElement} e 
+     */
     validateVerification(e){
 
         console.log(e);
@@ -151,9 +177,6 @@ class Recharge extends Component {
                 else
                     alert("Try again.");
             })
-            // var a = res.json().accountQuantity;
-            // a = res.json()[["PromiseValue"]].accountQuantity;
-            // console.log(a);
             
             
         }).catch((err)=>{
