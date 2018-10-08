@@ -10,8 +10,8 @@ class Journey extends Component {
         }
     }
 
+    //current logged user will be added to the state
     componentWillMount(){
-        console.log(this.props.loggeduser);
         this.setState({loggeduser : this.props.loggeduser});
     }
 
