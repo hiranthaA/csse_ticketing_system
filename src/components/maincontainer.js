@@ -7,7 +7,9 @@ class MainContainer extends Component {
     constructor(props) {
         super(props);
         this.mainbody = React.createRef();
+        this.header = React.createRef();
         this.setLoadedContent = this.setLoadedContent.bind(this);
+        this.setHeaderContent = this.setHeaderContent.bind(this);
         this.state = { 
          }
     }
@@ -16,11 +18,15 @@ class MainContainer extends Component {
         this.mainbody.current.setMainBodyContent(cont);
     }
 
+    setHeaderContent(cont){
+        this.header.current.setHeaderLoadedContent(cont);
+    }
+
     render() { 
         return ( 
             <div>
-                <Header setBodyContent={this.setLoadedContent}/>
-                <MainBody ref={this.mainbody}/>
+                <Header ref={this.header} setBodyContent={this.setLoadedContent}/>
+                <MainBody ref={this.mainbody} setHeaderContent={this.setHeaderContent}/>
             </div>
          );
     }
