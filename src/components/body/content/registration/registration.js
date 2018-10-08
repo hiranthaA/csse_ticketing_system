@@ -4,6 +4,8 @@ import './registration.css';
 class Registration extends Component {
     constructor(props) {
         super(props);
+
+        {/*Binding methods*/}
         this.addForeignCustomer = this.addForeignCustomer.bind(this);
         this.addLocalCustomer = this.addLocalCustomer.bind(this);
         this.state = { 
@@ -11,7 +13,10 @@ class Registration extends Component {
         }
     }
 
+    //adding a foreign customer function
     addForeignCustomer(){
+
+        //get the value of text boxes
         var ffname = document.getElementById("fCusFirstName").value;
         var flname = document.getElementById("fCusLastName").value;
         var fdob = document.getElementById("fCusDob").value;
@@ -23,11 +28,8 @@ class Registration extends Component {
         var fcvv = document.getElementById("fCusCvv").value;
         var fexpiry = document.getElementById("fCusExpiry").value;
 
-        var date = new Date();
-        date.setDate(date.getDate() + 7);
 
-        console.log(date);
-
+        //checking for validations
         if(ffname==""){
             alert("First Name Required");
         }else if(flname==""){
@@ -49,7 +51,7 @@ class Registration extends Component {
         }else if(fpwd!=fpwdcnf){
             alert("Password Not Matching");
         }else{
-            var bal=0;
+            var bal=100;
             var obj1 ={
                 nicorpassport : fpass,
                 fname : ffname,
@@ -62,6 +64,7 @@ class Registration extends Component {
             }
             console.log(obj1);
 
+            //pass api call for the validation of user to check whether he already registered with the system
             fetch("http://localhost:9090/customer/getuser/"+fpass)
                 .then(res=>res.json())
                 .then(
@@ -70,7 +73,8 @@ class Registration extends Component {
                             alert("The Passport Number is already Registered with the system");
 
                     },
-                    (error) => {
+                    (response) => {
+                        //adding customer to database
                         fetch('http://localhost:9090/customer/add', {
                             method: 'POST',
                             headers: {
@@ -86,8 +90,9 @@ class Registration extends Component {
                             var passengerId = (data.nicorpassport);
                             var objAcc = {
                                 passengerId: passengerId,
-                                accountQuantity: 0
+                                accountQuantity: 100
                             };
+                            //adding customer account to the account table
                             return fetch('http://localhost:9090/accounts/add', {
                                 method: 'POST',
                                 headers: {
@@ -107,7 +112,10 @@ class Registration extends Component {
 
     }
 
+    //adding a local customer function
     addLocalCustomer(){
+
+        //get the user entered values of text boxes
         var lfname = document.getElementById("lCusFirstName").value;
         var llname = document.getElementById("lCusLastName").value;
         var ldob = document.getElementById("lCusDob").value;
@@ -120,6 +128,7 @@ class Registration extends Component {
         var lcvv = document.getElementById("lCusCvv").value;
         var lexpiry = document.getElementById("lCusExpiry").value;
 
+        //check for the basic validations
         if(lfname==""){
             alert("First Name Required");
         }else if(llname==""){
@@ -157,6 +166,7 @@ class Registration extends Component {
                 customerType : "local",
             }
             console.log(obj);
+            //pass api call to validate whether the entered nic already used
             fetch("http://localhost:9090/customer/getuser/"+lnic)
                 .then(res=>res.json())
                 .then(
@@ -166,6 +176,7 @@ class Registration extends Component {
 
                     },
                     (error) => {
+                        //adding customer to the customer table
                         fetch('http://localhost:9090/customer/add', {
                             method: 'POST',
                             headers: {
@@ -181,8 +192,9 @@ class Registration extends Component {
                             var passengerId = (data.nicorpassport);
                             var objAcc = {
                                 passengerId: passengerId,
-                                accountQuantity: 0
+                                accountQuantity: 100
                             };
+                            //adding customer to the account table
                             return fetch('http://localhost:9090/accounts/add', {
                                 method: 'POST',
                                 headers: {
@@ -251,6 +263,8 @@ class Registration extends Component {
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                             <div className="content card ">
 
+                                {/*Local Customer Registration form begins*/}
+
                                 <div className="card-header form-group row bg-info">
                                     <h4 className="heading "> Local Registration</h4>
                                 </div>
@@ -258,6 +272,7 @@ class Registration extends Component {
                                     <div className="row">
                                         <div className="regUserCard col-sm-6 col-md-6">
 
+                                            {/*First Name field of the Customer*/}
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group row">
@@ -267,6 +282,7 @@ class Registration extends Component {
                                                 </div>
                                             </div>
 
+                                            {/*Last Name field of the Customer*/}
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group row">
@@ -276,6 +292,7 @@ class Registration extends Component {
                                                 </div>
                                             </div>
 
+                                            {/*Date of birth field of the Customer*/}
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group row">
@@ -285,13 +302,16 @@ class Registration extends Component {
                                                 </div>
                                             </div>
 
+
                                             <div className="row">
+                                                {/*Mobile Number field of the Customer*/}
                                                 <div className="col-md-6">
                                                     <div className="form-group row">
                                                         <label id="label">Mobile</label>
                                                         <input type="number" className="form-control" id="lCusMobile" placeholder="Mobile"></input>
                                                     </div>
                                                 </div>
+                                                {/*NIC Number field of the Customer*/}
                                                 <div className="col-md-6">
                                                     <div className="form-group row">
                                                         <label id="label">NIC (This will be your Username)</label>
@@ -301,12 +321,14 @@ class Registration extends Component {
                                             </div>
 
                                             <div className="row">
+                                                {/*Password field of the Customer*/}
                                                 <div className="col-md-6">
                                                     <div className="form-group row">
                                                         <label id="label">Password</label>
                                                         <input type="password" className="form-control" id="lCusPassword" placeholder="Password"></input>
                                                     </div>
                                                 </div>
+                                                {/*Confirm Password field of the Customer*/}
                                                 <div className="col-md-6">
                                                     <div className="form-group row">
                                                         <label id="label">Confirm Password</label>
@@ -316,6 +338,7 @@ class Registration extends Component {
                                             </div>
                                         </div>
 
+                                        {/*Payment Details of the Customer*/}
                                         <div className="regPaymentCard col-sm-6 col-md-6">
                                             <div className="card-header form-group row border-info">
                                                 <h5 className="heading "> Payment Details</h5>
@@ -323,6 +346,8 @@ class Registration extends Component {
                                             <br/>
                                             <div className="row">
                                                 <div className="col-sm-6 col-md-6">
+
+                                                   {/* Card Name field of the Customer*/}
                                                     <div className="row">
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
@@ -332,6 +357,7 @@ class Registration extends Component {
                                                         </div>
                                                     </div>
 
+                                                    {/*Card Number field of the Customer*/}
                                                     <div className="row">
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
@@ -345,6 +371,7 @@ class Registration extends Component {
 
                                                 <div className="col-sm-6 col-md-6">
 
+                                                    {/*CVV field of the Customer*/}
                                                     <div className="row">
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
@@ -355,6 +382,7 @@ class Registration extends Component {
 
                                                     </div>
 
+                                                    {/*Expiry Date field of the Customer*/}
                                                     <div className="row">
                                                         <div className="col-sm-12 col-md-12">
                                                             <div className="form-group row">
@@ -364,6 +392,7 @@ class Registration extends Component {
                                                         </div>
                                                     </div>
 
+                                                    {/*Initial Amount of the Customer*/}
                                                     <div className="row">
                                                         <div className="col-sm-6 col-md-8">
                                                             <div className="form-group row">
@@ -374,8 +403,10 @@ class Registration extends Component {
                                                     </div>
                                                     <br/>
                                                 </div>
-
                                             </div>
+                                           {/* Payment Form ends*/}
+
+                                            {/*Registration button of the customer*/}
                                             <div className="row">
                                                 <div className="col-sm-12 col-md-12">
                                                     <div className="form-group row">
@@ -384,12 +415,9 @@ class Registration extends Component {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
 
           {/*Starting form foreign customer registration*/}
@@ -404,6 +432,7 @@ class Registration extends Component {
                                     <div className="row">
                                         <div className="regUserCard col-sm-6 col-md-6">
 
+                                            {/*First Name field of the Customer*/}
                                             <div className="row">
                                                 <div className="col-sm-6 col-md-12">
                                                     <div className="form-group row">
@@ -411,9 +440,9 @@ class Registration extends Component {
                                                         <input type="text" className="form-control" id="fCusFirstName" placeholder="First Name"></input>
                                                     </div>
                                                 </div>
-
                                             </div>
 
+                                            {/*Last Name field of the Customer*/}
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group row">
@@ -423,6 +452,7 @@ class Registration extends Component {
                                                 </div>
                                             </div>
 
+                                            {/*Date of birth field of the Customer*/}
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group row">
@@ -432,6 +462,7 @@ class Registration extends Component {
                                                 </div>
                                             </div>
 
+                                            {/*Passport Number field of the Customer*/}
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="form-group row">
@@ -441,8 +472,9 @@ class Registration extends Component {
                                                 </div>
                                             </div>
 
-
                                             <div className="row">
+
+                                                {/*Password field of the Customer*/}
                                                 <div className="col-md-6">
                                                     <div className="form-group row">
                                                         <label id="label">Password</label>
@@ -450,6 +482,8 @@ class Registration extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
+
+                                                    {/*Confirm Password field of the Customer*/}
                                                     <div className="form-group row">
                                                         <label id="label">Confirm Password</label>
                                                         <input type="password" className="form-control" id="fCusPasswordConf" placeholder="Confirm Password"></input>
@@ -458,7 +492,7 @@ class Registration extends Component {
                                             </div>
                                         </div>
 
-
+                                        {/*Payment Details form of the Customer*/}
                                             <div className="regPaymentCard col-sm-6 col-md-6">
                                                 <div className="card-header form-group row border-info">
                                                     <h5 className="heading "> Payment Details</h5>
@@ -466,6 +500,8 @@ class Registration extends Component {
                                                 <br/>
                                                 <div className="row">
                                                     <div className="col-sm-6 col-md-6">
+
+                                                        {/*Card Name field of the Customer*/}
                                                          <div className="row">
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
@@ -475,6 +511,7 @@ class Registration extends Component {
                                                             </div>
                                                          </div>
 
+                                                        {/*Card No field of the Customer*/}
                                                         <div className="row">
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
@@ -488,6 +525,7 @@ class Registration extends Component {
 
                                                     <div className="col-sm-6 col-md-6">
 
+                                                        {/*CVV field of the Customer*/}
                                                         <div className="row">
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
@@ -497,6 +535,7 @@ class Registration extends Component {
                                                             </div>
                                                         </div>
 
+                                                        {/*Expiry Date field of the Customer*/}
                                                         <div className="row">
                                                             <div className="col-sm-12 col-md-12">
                                                                 <div className="form-group row">
@@ -506,6 +545,7 @@ class Registration extends Component {
                                                             </div>
                                                         </div>
 
+                                                        {/*Amount field of the Customer*/}
                                                         <div className="row">
                                                             <div className="col-sm-6 col-md-8">
                                                                 <div className="form-group row">
@@ -516,9 +556,9 @@ class Registration extends Component {
                                                         </div>
                                                         <br/>
                                                     </div>
-
                                                 </div>
 
+                                                {/*Registration button of the foreign Customer*/}
                                                 <div className="row">
                                                     <div className="col-sm-12 col-md-12">
                                                         <div className="form-group row">
