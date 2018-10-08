@@ -24,7 +24,12 @@ class MainBody extends Component {
 
     setMainBodyContent(cont){
         this.setState({loadedContent : cont});
+        this.props.setHeaderContent(cont);
     }
+
+    // setHeaderContent(cont){
+    //     this.
+    // }
 
     render() { 
         let loadcontent;
